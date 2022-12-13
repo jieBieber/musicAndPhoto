@@ -98,14 +98,11 @@ int main(void)
                 {
                     if(++k>4)
                         k=0;
-                    lcd_draw_clear(0,0,480,800,0xffffff);
+                    lcd_draw_clear(0,0,480,800,0x000000);
                     bmp_show(bmp[k],0,0);
                 }
                 else if(pid == 0)
-                {
                     playMusic(mp3_name[k%2]);
-                    kill(pid,SIGKILL);
-                }
             }
             else if(start_x-end_x > 50)
             {
@@ -119,10 +116,7 @@ int main(void)
                     bmp_show(bmp[k],0,0);
                 }
                 else if(pid == 0)
-                {
                     playMusic(mp3_name[k%2]);
-                    kill(pid,SIGKILL);
-                }
             }
             else if((end_x>200 && end_x < 600) || (end_y>200 && end_y < 400))
             {
@@ -136,7 +130,11 @@ int main(void)
                         bmp_show(bmp[j],0,0);
                         sleep(1);
                     }
-                    kill(pid,SIGKILL);
+                    exit(0);
+                }
+                else if(pid > 0)
+                {
+                    printf("wait:%d\n",wait(NULL));
                 }
             }
         }
@@ -155,7 +153,6 @@ int main(void)
                 if(pid == 0)
                 {
                     playMusic(mp3_name[i++%2]);
-                    kill(pid,SIGKILL);
                 }
             }
             //2表示点击暂停
@@ -187,7 +184,6 @@ int main(void)
                 {
                     stopMusic(); 
                     playMusic(mp3_name[i]);
-                    kill(pid,SIGKILL);
                 }
             }
             //4表示切换下一首
@@ -202,7 +198,6 @@ int main(void)
                 {
                     stopMusic(); 
                     playMusic(mp3_name[i%2]); 
-                    kill(pid,SIGKILL);
                 }
             }
             //无效值
