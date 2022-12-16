@@ -39,6 +39,7 @@ int main(void)
     bool autoPicture = false;
 
 
+    printf("test for arm-linux-gcc\n");
     /* 捕捉了SIGINT信号（Ctrl+C），当用户按下 Ctrl+C结束父进程时，会自动去执行 my_signal 函数 */
     signal(SIGINT,my_signal);
 
